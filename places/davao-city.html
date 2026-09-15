@@ -6,22 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Davao City | Love Nature Way</title>
 
-    <style>
-        a {
-            color: #91f8fc;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="../style.css">
 </head>
 
-<body style="background-color: rgb(35, 43, 44); color: white;">
+<body>
 
     <header>
 
-        <h1 style="text-align: center;">Davao City</h1>
+        <h1>Davao City</h1>
 
         <nav>
-            <ul style="list-style-type: none; display: flex; justify-content: center; gap: 20px; padding: 0;">
+            <ul>
                 <li><a href="../index.html">Home</a></li>
                 <li><a href="../about.html">About</a></li>
                 <li><a href="../contact.html">Contact</a></li>
@@ -32,37 +27,34 @@
 
     <main>
 
-        <section>
+        <section class="background">
 
-            <h2 style="text-align: center;">Davao City</h2>
+            <h2>Davao City</h2>
 
             <img src="https://d1qvryx77qeesd.cloudfront.net/2024/10/R11_Davao-del-Norte_Samal_Pearl-Farm-Beach-Resort_Malipano-Villa-2-scaled.jpg"
-                alt="Davao City picture"
-                width="400"
-                height="300"
-                style="display: block; margin: 0 auto;">
+                alt="Davao City picture">
 
             <br>
 
-            <p style= "text-align: center;">
-                Davao City is a vibrant metropolis in Mindanao known for its
-                natural beauty, cultural diversity, and economic growth. It offers a mix
-                of urban amenities, outdoor activities, and local experiences.
+            <p>
+                Davao City is a major urban center in the southern Philippines, 
+                known for its natural beauty, cultural diversity, and economic significance. 
+                It offers a unique blend of modern development and traditional charm.
             </p>
 
-            <p style="text-align: center;">
-                I recommend visiting the beaches and parks in Davao City for their natural beauty and recreational opportunities. It is a great place for capturing
-                aesthetic Instagram photos, especially during golden hour and
-                around the local markets.
+            <p>
+                I recommend Davao City for its vibrant culture and scenic landscapes. 
+                It is a great place for Instagram photos, especially street shots, 
+                nature photos, and evening pictures.
             </p>
 
         </section>
 
-        <section>
+        <section class="background">
 
-            <h2 style="text-align: center;">Spot Details</h2>
+            <h2>Spot Details</h2>
 
-            <table border="1" style="margin: 0 auto;">
+            <table>
 
                 <tr>
                     <th>Location</th>
@@ -82,11 +74,11 @@
 
         </section>
 
-        <section>
+        <section class="background">
 
-            <h2 style="text-align: center;">Why You'll Love It</h2>
+            <h2>Why You'll Love It</h2>
 
-            <ul style="list-style-type: none; text-align: center; padding: 0;">
+            <ul>
                 <li>Modern city atmosphere</li>
                 <li>Aesthetic streets</li>
                 <li>Cafes and restaurants</li>
@@ -95,59 +87,63 @@
 
         </section>
 
-        <section>
-            <h2 style="text-align: center;">Suggest a Place</h2>
-        
-            <form style="text-align: center;">
-        
+        <section class="background">
+
+            <h2>Suggest a Place</h2>
+
+            <form>
+
                 <label for="place-name">Place Name:</label>
                 <input type="text" id="place-name" name="place-name" required>
-        
+
                 <br><br>
-        
+
                 <fieldset>
+
                     <legend>What type of place is it?</legend>
-        
+
                     <input type="radio" id="food" name="category" value="food">
                     <label for="food">Food</label>
-        
+
                     <input type="radio" id="study" name="category" value="study">
                     <label for="study">Study Spot</label>
-        
+
                     <input type="radio" id="outdoors" name="category" value="outdoors">
                     <label for="outdoors">Outdoors</label>
+
                 </fieldset>
-        
+
                 <br>
-        
+
                 <p>What's good about it?</p>
-        
+
                 <input type="checkbox" id="affordable" name="good-points" value="affordable">
                 <label for="affordable">Affordable</label>
-        
+
                 <input type="checkbox" id="wifi" name="good-points" value="wifi">
                 <label for="wifi">Good Wi-Fi</label>
-        
+
                 <input type="checkbox" id="quiet" name="good-points" value="quiet">
                 <label for="quiet">Quiet</label>
-        
+
                 <br><br>
-        
+
                 <label for="email">Contact Email:</label>
                 <input type="email" id="email" name="email" required>
-        
+
                 <br><br>
-        
+
                 <button type="submit">Suggest Place</button>
-        
+
             </form>
+
         </section>
 
     </main>
 
     <footer>
 
-        <p style="text-align: center;">
+        <p>
             &copy; 2026 Roy's Love Nature Way. All rights reserved.
         </p>
 
