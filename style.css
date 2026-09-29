@@ -10,12 +10,16 @@
    ========================= */
 
 :root {
-    --brand-color: #488596;
+    --brand-color: #6BA0AF;
     --dark-ink: #FFFFFF;
-    --muted-grey: #90b4e4;
-    --light-background: #3f3f3f;
-    --card-background: #777373;
+    --muted-grey: #BCD9FF;
+    --light-background: #2B2B2B;
+    --card-background: #292929;
     --background: #161515;
+
+    /* Vertical padding shared by main and the sidebar, so the sidebar
+       can line up with the top and bottom of main's content box. */
+    --region-pad: 20px;
 
     --font-heading: 'Poppins', Arial, sans-serif;
     --font-body: 'Inter', Arial, sans-serif;
@@ -79,15 +83,41 @@ p {
    3. Layout Regions
    ========================= */
 
+/* Page skeleton: grid runs the page regions (outside),
+   flexbox runs the components inside them (header, place cards).
+
+   Base = mobile, one column, everything stacked.
+   The "side" area is listed last so the recommendations reach
+   the visitor before the secondary content. Named areas do the
+   reordering, so the <aside> in the HTML does not have to move. */
+body {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas:
+        "masthead"
+        "main"
+        "side"
+        "foot";
+    gap: 16px;
+}
+
+header { grid-area: masthead; }
+main   { grid-area: main; }
+aside  { grid-area: side; }
+footer { grid-area: foot; }
+
+
 header {
     background-color: var(--brand-color);
-    padding: 20px 30px;
+    padding: 20px 15px;
     text-align: center;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 
     display: flex;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
+    gap: 15px;
 }
 
 section p {
@@ -97,7 +127,7 @@ section p {
 
 .background {
     background-color: var(--background);
-    padding: 2em;
+    padding: 1.25em;
     border-radius: 1em;
 }
 
@@ -107,17 +137,19 @@ section p {
 
 .about {
     background-color: var(--background);
-    padding: 2em;
+    padding: 1.25em;
     border-radius: 1em;
 }
 header h1 {
     text-align: center;
     margin: 10px 0 15px;
+    font-size: 26px;
     color: var(--light-background);
 }
 
 header p {
     text-align: center;
+    font-size: 14px;
     color: var(--light-background);
 }
 
@@ -131,9 +163,10 @@ nav ul {
     margin: 0;
 
     display: flex;
+    flex-direction: column;
     justify-content: center;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 10px;
 }
 
 nav a {
@@ -151,8 +184,8 @@ nav a:hover {
 
 main {
     width: 100%;
-    max-width: 1000px;
-    padding: 30px 20px;
+    max-width: 1150px;
+    padding: var(--region-pad) 15px;
     margin: 0 auto;
 }
 
@@ -184,6 +217,61 @@ footer p {
    ========================= */
 
 
+/* Sidebar
+   Full-width block on mobile, the 220px grid column at 700px and up. */
+
+aside {
+    background-color: var(--background);
+    border: 1px solid var(--muted-grey);
+    border-left: 10px solid var(--brand-color);
+    border-radius: 1em;
+    padding: 20px;
+
+    /* Fill the row so the sidebar card is as tall as the main column.
+       The row is sized by the tallest item (main), and stretch makes
+       the sidebar match it. This is the grid default, stated explicitly. */
+    align-self: stretch;
+}
+
+aside h2 {
+    font-size: 1.25rem;
+    margin-bottom: 12px;
+}
+
+/* The base rule centres the 60px bar, left-align it in the narrow column */
+aside h2::after {
+    margin: 10px 0 0;
+}
+
+aside ul {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 20px;
+    text-align: left;
+}
+
+aside li {
+    margin: 8px 0;
+}
+
+aside a {
+    color: var(--brand-color);
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+aside a:hover {
+    color: var(--muted-grey);
+    text-decoration: underline;
+}
+
+aside p {
+    margin: 0;
+    text-align: left;
+}
+
+
 /* Place Cards */
 
 .place-grid {
@@ -194,20 +282,20 @@ footer p {
   align-items: stretch;
   gap: 24px;
   background-color: var(--background);
-  padding: 40px;
+  padding: 20px;
   border-radius: 1em;
 }
 
 .place-card {
-    flex: 1 1 240px;
+    flex: 1 1 100%;
     font-family: var(--font-body);
     background-color: var(--card-background);
     border: 1px solid var(--muted-grey);
     border-radius: 10px;
-    padding: 16px;
-    max-width: 320px;
+    padding: 14px;
+    max-width: 400px;
     text-align: center;
-    border-left: 10px solid var(--brand-color);
+    border-left: 6px solid var(--brand-color);
 
     display: flex;
     flex-direction: column;
@@ -222,7 +310,7 @@ footer p {
 
 .place-card h3 {
     margin-top: 0;
-    font-size: 24px;
+    font-size: 20px;
     color: var(--brand-color);
 }
 
@@ -266,12 +354,20 @@ main section img {
 }
 
 
-/* Tables */
+/* Tables
+   The wrapper scrolls the table sideways inside its own card on narrow
+   screens, so the page itself never scrolls sideways. */
+
+.table-wrap {
+    max-width: 700px;
+    margin: 0 auto;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
 table {
     width: 100%;
-    max-width: 700px;
-    margin: 0 auto;
+    font-size: 0.875rem;
     border-collapse: collapse;
     background-color: var(--light-background);
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
@@ -279,7 +375,7 @@ table {
 
 th,
 td {
-    padding: 12px 15px;
+    padding: 8px;
     border: 1px solid var(--muted-grey);
     text-align: center;
 }
@@ -355,6 +451,16 @@ select:focus {
     outline-offset: 2px;
 }
 
+/* Checkboxes and radios must not inherit width: 100% from the input rule,
+   or every option becomes a full-width box and breaks its inline row. */
+input[type="radio"],
+input[type="checkbox"] {
+    width: auto;
+    padding: 0;
+    margin: 0 4px 0 0;
+    vertical-align: middle;
+}
+
 label {
     color: var(--dark-ink);
     font-weight: 600;
@@ -382,53 +488,88 @@ button:hover {
 
 
 /* =========================
-   Responsive Styles
-   ========================= */
+   Progressive Enhancement
+   =========================
+   Everything above this point is the mobile layout.
+   The rules below only enhance it at 700px and up.
+   No max-width queries in this project. */
 
-@media (max-width: 600px) {
+@media (min-width: 700px) {
+
+    :root {
+        --region-pad: 30px;
+    }
+
+    /* The sidebar becomes a real second column.
+       Every row string below has exactly 2 names, matching the 2 columns. */
+    body {
+        grid-template-columns: 220px minmax(0, 1fr);
+        grid-template-areas:
+            "masthead masthead"
+            "side     main"
+            "foot     foot";
+    }
 
     header {
-        padding: 20px 15px;
+        padding: 20px 30px;
+        flex-direction: row;
+        gap: 0;
     }
 
     header h1 {
-        font-size: 26px;
+        font-size: 32px;
     }
 
     header p {
-        font-size: 14px;
+        font-size: 16px;
     }
 
     nav ul {
-        flex-direction: column;
-        gap: 10px;
+        flex-direction: row;
+        gap: 20px;
     }
 
     main {
-        padding: 20px 15px;
+        padding: var(--region-pad) 20px;
     }
 
+    /* Stretch the sidebar to the row, then pull it in by main's own
+       padding: its top edge lands on the first card and its bottom
+       edge lands on the last one. */
+    aside {
+        margin-block: var(--region-pad);
+    }
+
+    .background,
+    .about {
+        padding: 2em;
+    }
+
+    .place-grid {
+        padding: 40px;
+    }
+
+    /* Module 6 card sizing comes back at this width */
     .place-card {
-        flex: 1 1 100%;
-        max-width: 400px;
-        padding: 14px;
-        border-left: 6px solid var(--brand-color);
+        flex: 1 1 280px;
+        padding: 20px;
+        border-left: 10px solid var(--brand-color);
     }
 
     .place-card h3 {
-        font-size: 20px;
+        font-size: 24px;
     }
 
     table {
-        font-size: 14px;
+        font-size: 1rem;
     }
 
     th,
     td {
-        padding: 8px;
+        padding: 12px 15px;
     }
 
     fieldset {
-        padding: 15px;
+        padding: 20px;
     }
 }
